@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Mail, Phone } from "lucide-react";
+import { Camera, Mail, Phone } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -28,7 +28,7 @@ export function SiteFooter() {
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li className="flex items-center gap-2"><Mail size={14} className="text-primary" /> studio@zeez.co</li>
             <li className="flex items-center gap-2"><Phone size={14} className="text-primary" /> +1 (212) 555 0182</li>
-            <li className="flex items-center gap-2"><Instagram size={14} className="text-primary" /> @studiozeez</li>
+            <li className="flex items-center gap-2"><Camera size={14} className="text-primary" /> @studiozeez</li>
           </ul>
         </div>
       </div>
