@@ -35,21 +35,21 @@ function Contact() {
               <Mail className="text-primary mt-1" size={20} />
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Email</p>
-                <p className="text-foreground mt-1">studio@zeez.co</p>
+                <p className="text-foreground mt-1">Studiozeez@gmail.com</p>
               </div>
             </li>
             <li className="flex items-start gap-4">
               <Phone className="text-primary mt-1" size={20} />
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Phone</p>
-                <p className="text-foreground mt-1">+1 (212) 555 0182</p>
+                <p className="text-foreground mt-1">+2348131117298</p>
               </div>
             </li>
             <li className="flex items-start gap-4">
               <MapPin className="text-primary mt-1" size={20} />
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Studio</p>
-                <p className="text-foreground mt-1">88 Wythe Avenue, Brooklyn NY</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Instagram</p>
+                <p className="text-foreground mt-1">@studio_zeez</p>
               </div>
             </li>
           </ul>
