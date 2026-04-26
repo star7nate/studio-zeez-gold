@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Camera, Star } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import hero from "@/assets/hero-portrait.jpg";
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
-import g4 from "@/assets/gallery-4.jpg";
-import g5 from "@/assets/gallery-5.jpg";
+import hero from "@/assets/studio-zeez-hero.jpg";
+import g1 from "@/assets/studio-zeez-gallery-1.jpg";
+import g2 from "@/assets/studio-zeez-gallery-2.jpg";
+import g4 from "@/assets/studio-zeez-gallery-4.jpg";
+import g5 from "@/assets/studio-zeez-gallery-5.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -27,7 +27,7 @@ function Index() {
         <div className="absolute inset-0">
           <img
             src={hero}
-            alt="Studio Zeez hero portrait in gold light"
+            alt="Studio Zeez beauty portrait photographed in studio light"
             width={1080}
             height={1920}
             className="absolute right-0 top-0 h-full w-full md:w-3/5 object-cover object-center"
@@ -128,7 +128,7 @@ function Index() {
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 grid md:grid-cols-3 gap-12">
           {[
             { icon: Camera, title: "Editorial & Fashion", text: "Story-driven shoots for magazines, look-books, and brand campaigns." },
-            { icon: Star, title: "Weddings & Events", text: "Discreet, cinematic coverage of once-in-a-lifetime celebrations." },
+            { icon: Star, title: "Weddings & Events", text: "Elegant, cinematic coverage of once-in-a-lifetime celebrations." },
             { icon: Camera, title: "Brand & Product", text: "Luxury still life and lifestyle imagery that elevates the object." },
           ].map((s, i) => (
             <div key={i} className="group">
