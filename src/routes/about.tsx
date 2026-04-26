@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
-import portrait from "@/assets/about-portrait.jpg";
+import portrait from "@/assets/studio-zeez-about.jpg";
 import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
@@ -25,7 +25,7 @@ function About() {
           <div className="relative aspect-[4/5] overflow-hidden border border-border/60 shadow-elegant">
             <img
               src={portrait}
-              alt="Founder of Studio Zeez behind the camera"
+              alt="Studio Zeez portrait subject in studio lighting"
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover"
             />
@@ -44,9 +44,9 @@ function About() {
               and still feel its pulse.
             </p>
             <p>
-              Working out of a Brooklyn studio and on assignment worldwide, we've collaborated with
-              independent designers, heritage maisons, and couples who refuse the ordinary. Our
-              language is gold, shadow, and the quiet space between.
+              Working from Nigeria and on assignment for clients everywhere, we've collaborated with
+              couples, creatives, founders, and families who refuse the ordinary. Our language is
+              gold, shadow, and the quiet space between.
             </p>
             <p>
               Every commission is taken personally. There is no team of associates, no factory line.
