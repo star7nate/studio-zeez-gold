@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
-import g3 from "@/assets/gallery-3.jpg";
-import g4 from "@/assets/gallery-4.jpg";
-import g5 from "@/assets/gallery-5.jpg";
-import g6 from "@/assets/gallery-6.jpg";
+import g1 from "@/assets/studio-zeez-gallery-1.jpg";
+import g2 from "@/assets/studio-zeez-gallery-2.jpg";
+import g3 from "@/assets/studio-zeez-gallery-3.jpg";
+import g4 from "@/assets/studio-zeez-gallery-4.jpg";
+import g5 from "@/assets/studio-zeez-gallery-5.jpg";
+import g6 from "@/assets/studio-zeez-gallery-6.jpg";
+import g7 from "@/assets/studio-zeez-gallery-7.jpg";
+import g8 from "@/assets/studio-zeez-gallery-8.jpg";
 
 export const Route = createFileRoute("/gallery")({
   component: Gallery,
@@ -22,12 +24,14 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const items = [
-  { src: g2, label: "Aurum", category: "Editorial" },
-  { src: g4, label: "Ember", category: "Portrait" },
-  { src: g1, label: "Vow", category: "Wedding" },
-  { src: g5, label: "Reflet", category: "Product" },
-  { src: g3, label: "Nocturne", category: "Street" },
-  { src: g6, label: "Soirée", category: "Event" },
+  { src: g2, label: "Aurum", category: "Portrait" },
+  { src: g4, label: "Heritage", category: "Traditional" },
+  { src: g1, label: "Scarlet", category: "Editorial" },
+  { src: g5, label: "Intimate", category: "Couples" },
+  { src: g3, label: "Nocturne", category: "Fashion" },
+  { src: g6, label: "Vow", category: "Wedding" },
+  { src: g7, label: "Elegance", category: "Portrait" },
+  { src: g8, label: "Studio Day", category: "Lifestyle" },
 ];
 
 function Gallery() {
