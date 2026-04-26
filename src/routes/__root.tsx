@@ -36,7 +36,7 @@ export const Route = createRootRoute({
       { property: "og:description", content: "Studio Zeez crafts cinematic, gold-touched photography for portraits, weddings, fashion editorials, and luxury brands." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@studiozeez" },
+      { name: "twitter:site", content: "@studio_zeez" },
       { name: "twitter:title", content: "Studio Zeez — Luxury Photography in Gold & Black" },
       { name: "twitter:description", content: "Studio Zeez crafts cinematic, gold-touched photography for portraits, weddings, fashion editorials, and luxury brands." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8b5ab9a0-4483-4534-86b3-ea2caf9062c0/id-preview-18267726--79c47f7a-7200-40db-a5a9-da2beadc5fe7.lovable.app-1776874155960.png" },
