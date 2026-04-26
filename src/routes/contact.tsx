@@ -3,6 +3,8 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 
+const studioEmail = "Studiozeez@gmail.com";
+
 export const Route = createFileRoute("/contact")({
   component: Contact,
   head: () => ({
@@ -17,6 +19,24 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   const [sent, setSent] = useState(false);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const first = String(formData.get("first") || "").trim();
+    const last = String(formData.get("last") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const type = String(formData.get("type") || "").trim();
+    const message = String(formData.get("message") || "").trim();
+    const subject = encodeURIComponent(`Studio Zeez booking request from ${first} ${last}`.trim());
+    const body = encodeURIComponent(
+      [`Name: ${first} ${last}`.trim(), `Email: ${email}`, `Project type: ${type}`, "", message].join("\n"),
+    );
+
+    window.location.href = `mailto:${studioEmail}?subject=${subject}&body=${body}`;
+    setSent(true);
+  }
+
   return (
     <SiteLayout>
       <section className="max-w-7xl mx-auto px-6 lg:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-16">
@@ -35,7 +55,7 @@ function Contact() {
               <Mail className="text-primary mt-1" size={20} />
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Email</p>
-                <p className="text-foreground mt-1">Studiozeez@gmail.com</p>
+                <p className="text-foreground mt-1">{studioEmail}</p>
               </div>
             </li>
             <li className="flex items-start gap-4">
@@ -56,10 +76,7 @@ function Contact() {
         </div>
 
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-          }}
+          onSubmit={handleSubmit}
           className="border border-border/60 bg-card/40 p-8 md:p-10 space-y-6"
         >
           <div className="grid grid-cols-2 gap-4">
@@ -73,6 +90,7 @@ function Contact() {
               Tell us about your vision
             </label>
             <textarea
+              name="message"
               required
               rows={5}
               className="mt-2 w-full bg-input/50 border border-border/60 px-4 py-3 text-foreground focus:border-primary focus:outline-none transition-colors resize-none"
