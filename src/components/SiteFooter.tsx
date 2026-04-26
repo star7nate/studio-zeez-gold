@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Camera, Mail, Phone } from "lucide-react";
 
+const currentYear = 2026;
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/40 bg-card/40 mt-24">
@@ -34,7 +36,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border/40">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Studio Zeez. All rights reserved.</p>
+          <p>© {currentYear} Studio Zeez. All rights reserved.</p>
           <p className="tracking-[0.2em] uppercase">Light · Shadow · Gold</p>
         </div>
       </div>
