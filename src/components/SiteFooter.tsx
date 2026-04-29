@@ -28,9 +28,9 @@ export function SiteFooter() {
         <div>
           <h4 className="text-xs uppercase tracking-[0.25em] text-primary mb-4">Contact</h4>
           <ul className="space-y-3 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2"><Mail size={14} className="text-primary" /> Studiozeez@gmail.com</li>
-            <li className="flex items-center gap-2"><Phone size={14} className="text-primary" /> +2348131117298</li>
-            <li className="flex items-center gap-2"><Camera size={14} className="text-primary" /> @studio_zeez</li>
+            <li className="flex items-center gap-2"><Mail size={14} className="text-primary" /><span>Studiozeez@gmail.com</span></li>
+            <li className="flex items-center gap-2"><Phone size={14} className="text-primary" /><span>+2348131117298</span></li>
+            <li className="flex items-center gap-2"><Camera size={14} className="text-primary" /><span>@studio_zeez</span></li>
           </ul>
         </div>
       </div>
