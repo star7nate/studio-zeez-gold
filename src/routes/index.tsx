@@ -103,9 +103,9 @@ function Index() {
         <div className="grid grid-cols-12 gap-4 md:gap-6">
           {[
             { src: g2, span: "col-span-12 md:col-span-7 row-span-2 aspect-[4/5] md:aspect-auto", label: "Editorial" },
-            { src: g4, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait" },
+            { src: g1, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait" },
             { src: g5, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Product" },
-            { src: g1, span: "col-span-12 md:col-span-7 aspect-[16/10]", label: "Wedding" },
+            { src: g4, span: "col-span-12 md:col-span-7 aspect-[16/10]", label: "Wedding" },
           ].map((item, i) => (
             <figure key={i} className={`group relative overflow-hidden bg-card ${item.span}`}>
               <img
