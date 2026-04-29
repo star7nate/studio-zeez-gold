@@ -6,6 +6,7 @@ import g1 from "@/assets/studio-zeez-gallery-1.jpg";
 import g2 from "@/assets/studio-zeez-gallery-2.jpg";
 import g4 from "@/assets/studio-zeez-gallery-4.jpg";
 import g5 from "@/assets/studio-zeez-gallery-5.jpg";
+import watch from "@/assets/studio-zeez-product-watch.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -104,7 +105,7 @@ function Index() {
           {[
             { src: g2, span: "col-span-12 md:col-span-7 row-span-2 aspect-[4/5] md:aspect-auto", label: "Editorial" },
             { src: g1, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait" },
-            { src: g5, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Product" },
+            { src: watch, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Product" },
             { src: g4, span: "col-span-12 md:col-span-7 aspect-[16/10]", label: "Wedding" },
           ].map((item, i) => (
             <figure key={i} className={`group relative overflow-hidden bg-card ${item.span}`}>
