@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CreditCard } from "lucide-react";
 import { useState } from "react";
 
 const studioEmail = "Studiozeez@gmail.com";
+const paymentLink = "https://kindlybook.me/Studio_zeez";
 
 export const Route = createFileRoute("/contact")({
   component: Contact,
@@ -30,7 +31,14 @@ function Contact() {
     const message = String(formData.get("message") || "").trim();
     const subject = encodeURIComponent(`Studio Zeez booking request from ${first} ${last}`.trim());
     const body = encodeURIComponent(
-      [`Name: ${first} ${last}`.trim(), `Email: ${email}`, `Project type: ${type}`, "", message].join("\n"),
+      [
+        `Name: ${first} ${last}`.trim(),
+        `Email: ${email}`,
+        `Project type: ${type}`,
+        `Payment link: ${paymentLink}`,
+        "",
+        message,
+      ].join("\n"),
     );
 
     window.location.href = `mailto:${studioEmail}?subject=${subject}&body=${body}`;
@@ -70,6 +78,20 @@ function Contact() {
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Instagram</p>
                 <p className="text-foreground mt-1">@studio_zeez</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <CreditCard className="text-primary mt-1" size={20} />
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Payment</p>
+                <a
+                  href={paymentLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-foreground mt-1 inline-block hover:text-primary transition-colors"
+                >
+                  Pay with KindlyBook
+                </a>
               </div>
             </li>
           </ul>
