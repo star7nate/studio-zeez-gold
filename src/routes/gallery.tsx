@@ -20,6 +20,15 @@ import upFamily from "@/assets/upload-family-portrait.jpg";
 import upSmoke from "@/assets/upload-smoke-portrait.jpg";
 import upDenim from "@/assets/upload-denim-ladder.jpg";
 import upBlack from "@/assets/upload-black-dress.jpg";
+import upWhiteShirt from "@/assets/upload-white-shirt.jpg";
+import upNyCap from "@/assets/upload-ny-cap.jpg";
+import upTealSit from "@/assets/upload-teal-sit.jpg";
+import upTealStand from "@/assets/upload-teal-stand.jpg";
+import upSetCurtains from "@/assets/upload-set-curtains.jpg";
+import upSetPedestals from "@/assets/upload-set-pedestals.jpg";
+import upSetWave from "@/assets/upload-set-wave.jpg";
+import upStairsWarm from "@/assets/upload-set-stairs-warm.jpg";
+import upStairsPurple from "@/assets/upload-set-stairs-purple.jpg";
 
 export const Route = createFileRoute("/gallery")({
   component: Gallery,
@@ -37,15 +46,24 @@ export const Route = createFileRoute("/gallery")({
 
 const items = [
   { src: upSmoke, label: "Veil of Smoke", category: "Editorial" },
+  { src: upWhiteShirt, label: "Crisp Cotton", category: "Fashion" },
+  { src: upTealStand, label: "Tassel & Teal", category: "Couture" },
   { src: upGreen2, label: "Emerald Grace", category: "Traditional" },
   { src: upBlack, label: "Crimson Noir", category: "Fashion" },
+  { src: upNyCap, label: "Off Duty", category: "Street" },
   { src: upFamily, label: "House of Red", category: "Family" },
+  { src: upTealSit, label: "Atelier", category: "Couture" },
   { src: upPurple, label: "Violet Hour", category: "Portrait" },
+  { src: upSetCurtains, label: "Velvet Stage", category: "Set Design" },
   { src: upDenim, label: "Studio Day", category: "Lifestyle" },
   { src: upCouple, label: "Heirloom", category: "Couples" },
+  { src: upSetPedestals, label: "Plinths", category: "Set Design" },
   { src: upGreen1, label: "Iroyin", category: "Traditional" },
   { src: upPony, label: "Silhouette", category: "Portrait" },
+  { src: upSetWave, label: "Crescent", category: "Set Design" },
   { src: upKids, label: "Little Royals", category: "Family" },
+  { src: upStairsWarm, label: "Ascent", category: "Architecture" },
+  { src: upStairsPurple, label: "Neon Climb", category: "Architecture" },
   { src: g2, label: "Aurum", category: "Portrait" },
   { src: g4, label: "Heritage", category: "Traditional" },
   { src: g1, label: "Scarlet", category: "Editorial" },
@@ -72,11 +90,17 @@ function Gallery() {
         </p>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-24">
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 [column-fill:_balance]">
-          {items.map((it, i) => (
-            <TiltCard key={i} className="mb-6 break-inside-avoid block" max={7}>
-              <figure className="group relative overflow-hidden bg-card border border-border/40">
+      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-24 scene-3d">
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 [column-fill:_balance] preserve-3d">
+          {items.map((it, i) => {
+            const depthZ = (i % 3) * 14 - 14;
+            const tiltY = ((i % 5) - 2) * 1.4;
+            return (
+            <TiltCard key={i} className="mb-6 break-inside-avoid block animate-drift" max={9}>
+              <figure
+                className="group relative overflow-hidden bg-card border border-border/40 depth-glow"
+                style={{ transform: `translateZ(${depthZ}px) rotateY(${tiltY}deg)`, animationDelay: `${(i % 4) * 0.8}s` }}
+              >
                 <img
                   src={it.src}
                   alt={`${it.label} — ${it.category} photography`}
@@ -90,7 +114,8 @@ function Gallery() {
                 </figcaption>
               </figure>
             </TiltCard>
-          ))}
+          );
+          })}
         </div>
       </section>
     </SiteLayout>
