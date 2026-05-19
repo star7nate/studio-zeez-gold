@@ -5,16 +5,10 @@ import { TiltCard } from "@/components/TiltCard";
 import { ParticleField } from "@/components/ParticleField";
 import { useParallax } from "@/hooks/useParallax";
 import hero from "@/assets/studio-zeez-hero.jpg";
-import g1 from "@/assets/studio-zeez-gallery-1.jpg";
-import g2 from "@/assets/studio-zeez-gallery-2.jpg";
-import g4 from "@/assets/studio-zeez-gallery-4.jpg";
-import g5 from "@/assets/studio-zeez-gallery-5.jpg";
 import watch from "@/assets/studio-zeez-product-watch.jpg";
-import upGreen1 from "@/assets/upload-traditional-green-1.jpg";
 import upPurple from "@/assets/upload-portrait-purple.jpg";
 import upFamily from "@/assets/upload-family-portrait.jpg";
 import upSmoke from "@/assets/upload-smoke-portrait.jpg";
-import upBlack from "@/assets/upload-black-dress.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
