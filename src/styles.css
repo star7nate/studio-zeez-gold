@@ -192,3 +192,27 @@
   }
   .animate-shimmer { animation: shimmer 3s ease-in-out infinite; }
 }
+
+@layer utilities {
+  .scene-3d { perspective: 1400px; perspective-origin: 50% 40%; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .floating-frame {
+    transform: translate3d(var(--mx, 0px), var(--my, 0px), var(--mz, 0px))
+               rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .depth-glow::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 0%, oklch(0.78 0.13 85 / 0.18), transparent 60%);
+    mix-blend-mode: screen;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -8px, 0); }
+  }
+  .animate-drift { animation: drift 7s ease-in-out infinite; }
+}

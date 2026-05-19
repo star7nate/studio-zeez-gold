@@ -4,11 +4,16 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { TiltCard } from "@/components/TiltCard";
 import { ParticleField } from "@/components/ParticleField";
 import { useParallax } from "@/hooks/useParallax";
+import { useMouseParallax } from "@/hooks/useMouseParallax";
 import hero from "@/assets/studio-zeez-hero.jpg";
 import watch from "@/assets/studio-zeez-product-watch.jpg";
 import upPurple from "@/assets/upload-portrait-purple.jpg";
 import upFamily from "@/assets/upload-family-portrait.jpg";
 import upSmoke from "@/assets/upload-smoke-portrait.jpg";
+import upWhiteShirt from "@/assets/upload-white-shirt.jpg";
+import upTealSit from "@/assets/upload-teal-sit.jpg";
+import upNyCap from "@/assets/upload-ny-cap.jpg";
+import upSetWave from "@/assets/upload-set-wave.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -25,26 +30,34 @@ export const Route = createFileRoute("/")({
 function Index() {
   const heroImgRef = useParallax(0.25) as React.RefObject<HTMLImageElement>;
   const featuredRef = useParallax(0.12) as React.RefObject<HTMLDivElement>;
+  const heroSceneRef = useMouseParallax(18) as React.RefObject<HTMLDivElement>;
   return (
     <SiteLayout>
       {/* HERO */}
-      <section className="relative min-h-[92vh] overflow-hidden bg-gradient-dark">
+      <section ref={heroSceneRef} className="relative min-h-[92vh] overflow-hidden bg-gradient-dark scene-3d">
         <ParticleField className="z-0" />
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 preserve-3d">
           <img
             ref={heroImgRef}
             src={hero}
             alt="Studio Zeez beauty portrait photographed in studio light"
             width={1080}
             height={1920}
-            className="absolute right-0 top-0 h-full w-full md:w-3/5 object-cover object-center will-change-transform"
+            className="absolute right-0 top-0 h-full w-full md:w-3/5 object-cover object-center will-change-transform floating-frame"
             style={{ transform: "translate3d(0, var(--py, 0px), 0) scale(1.08)" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 md:via-background/60 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          {/* Floating depth layers */}
+          <div className="hidden md:block absolute top-24 right-[58%] w-40 h-56 overflow-hidden border border-primary/30 shadow-elegant floating-frame animate-drift" style={{ transform: "translate3d(var(--mx,0px), var(--my,0px), 60px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg))" }}>
+            <img src={upWhiteShirt} alt="" className="h-full w-full object-cover opacity-90" />
+          </div>
+          <div className="hidden md:block absolute bottom-24 right-[62%] w-32 h-44 overflow-hidden border border-primary/20 shadow-elegant floating-frame animate-drift" style={{ animationDelay: "1.4s", transform: "translate3d(calc(var(--mx,0px) * -0.6), calc(var(--my,0px) * -0.6), 30px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg))" }}>
+            <img src={upTealSit} alt="" className="h-full w-full object-cover opacity-90" />
+          </div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-32 md:pt-40 pb-20 grid md:grid-cols-2 gap-10 items-center min-h-[92vh]">
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-32 md:pt-40 pb-20 grid md:grid-cols-2 gap-10 items-center min-h-[92vh] preserve-3d">
           <div className="animate-fade-up">
             <p className="text-xs uppercase tracking-[0.4em] text-primary mb-6 flex items-center gap-3">
               <span className="h-px w-10 bg-primary" /> Est. 2018 · Studio Zeez
@@ -114,6 +127,9 @@ function Index() {
             { src: upPurple, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait" },
             { src: watch, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Product" },
             { src: upFamily, span: "col-span-12 md:col-span-7 aspect-[16/10]", label: "Family" },
+            { src: upNyCap, span: "col-span-6 md:col-span-4 aspect-[4/5]", label: "Street" },
+            { src: upTealSit, span: "col-span-6 md:col-span-4 aspect-[4/5]", label: "Couture" },
+            { src: upSetWave, span: "col-span-12 md:col-span-4 aspect-[4/5]", label: "Set Design" },
           ].map((item, i) => (
             <TiltCard key={i} className={`${item.span}`} max={6}>
               <figure className="group relative h-full w-full overflow-hidden bg-card">
