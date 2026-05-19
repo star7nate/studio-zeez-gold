@@ -1,12 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Camera, Star } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { TiltCard } from "@/components/TiltCard";
+import { ParticleField } from "@/components/ParticleField";
+import { useParallax } from "@/hooks/useParallax";
 import hero from "@/assets/studio-zeez-hero.jpg";
 import g1 from "@/assets/studio-zeez-gallery-1.jpg";
 import g2 from "@/assets/studio-zeez-gallery-2.jpg";
 import g4 from "@/assets/studio-zeez-gallery-4.jpg";
 import g5 from "@/assets/studio-zeez-gallery-5.jpg";
 import watch from "@/assets/studio-zeez-product-watch.jpg";
+import upGreen1 from "@/assets/upload-traditional-green-1.jpg";
+import upPurple from "@/assets/upload-portrait-purple.jpg";
+import upFamily from "@/assets/upload-family-portrait.jpg";
+import upSmoke from "@/assets/upload-smoke-portrait.jpg";
+import upBlack from "@/assets/upload-black-dress.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -21,17 +29,22 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const heroImgRef = useParallax(0.25) as React.RefObject<HTMLImageElement>;
+  const featuredRef = useParallax(0.12) as React.RefObject<HTMLDivElement>;
   return (
     <SiteLayout>
       {/* HERO */}
       <section className="relative min-h-[92vh] overflow-hidden bg-gradient-dark">
+        <ParticleField className="z-0" />
         <div className="absolute inset-0">
           <img
+            ref={heroImgRef}
             src={hero}
             alt="Studio Zeez beauty portrait photographed in studio light"
             width={1080}
             height={1920}
-            className="absolute right-0 top-0 h-full w-full md:w-3/5 object-cover object-center"
+            className="absolute right-0 top-0 h-full w-full md:w-3/5 object-cover object-center will-change-transform"
+            style={{ transform: "translate3d(0, var(--py, 0px), 0) scale(1.08)" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 md:via-background/60 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
@@ -91,7 +104,7 @@ function Index() {
       </section>
 
       {/* FEATURED GRID */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-24">
+      <section ref={featuredRef} className="relative max-w-7xl mx-auto px-6 lg:px-10 pb-24" style={{ transform: "translate3d(0, calc(var(--py, 0px) * 0.4), 0)" }}>
         <div className="flex items-end justify-between mb-12">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-primary mb-3">Selected Work</p>
@@ -103,23 +116,25 @@ function Index() {
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6">
           {[
-            { src: g2, span: "col-span-12 md:col-span-7 row-span-2 aspect-[4/5] md:aspect-auto", label: "Editorial" },
-            { src: g1, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait" },
+            { src: upSmoke, span: "col-span-12 md:col-span-7 row-span-2 aspect-[4/5] md:aspect-auto", label: "Editorial" },
+            { src: upPurple, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait" },
             { src: watch, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Product" },
-            { src: g4, span: "col-span-12 md:col-span-7 aspect-[16/10]", label: "Wedding" },
+            { src: upFamily, span: "col-span-12 md:col-span-7 aspect-[16/10]", label: "Family" },
           ].map((item, i) => (
-            <figure key={i} className={`group relative overflow-hidden bg-card ${item.span}`}>
-              <img
-                src={item.src}
-                alt={`${item.label} photography by Studio Zeez`}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-80" />
-              <figcaption className="absolute bottom-5 left-5 text-xs uppercase tracking-[0.3em] text-primary">
-                {item.label}
-              </figcaption>
-            </figure>
+            <TiltCard key={i} className={`${item.span}`} max={6}>
+              <figure className="group relative h-full w-full overflow-hidden bg-card">
+                <img
+                  src={item.src}
+                  alt={`${item.label} photography by Studio Zeez`}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-80" />
+                <figcaption className="absolute bottom-5 left-5 text-xs uppercase tracking-[0.3em] text-primary">
+                  {item.label}
+                </figcaption>
+              </figure>
+            </TiltCard>
           ))}
         </div>
       </section>
