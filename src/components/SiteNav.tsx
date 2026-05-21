@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
@@ -12,10 +12,23 @@ const links = [
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const onScroll = () => {
+      if (!ref.current) return;
+      ref.current.dataset.scrolled = window.scrollY > 12 ? "true" : "false";
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/40">
+    <header
+      ref={ref}
+      className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/40 nav-lift"
+    >
       <nav className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-2 group tilt-hover">
           <span className="font-display text-2xl tracking-wider">
             <span className="text-gradient-gold">STUDIO</span>{" "}
             <span className="text-foreground">ZEEZ</span>
@@ -26,7 +39,7 @@ export function SiteNav() {
             <li key={l.to}>
               <Link
                 to={l.to}
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-all hover:-translate-y-[2px] inline-block"
                 activeProps={{ className: "text-primary" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
@@ -37,7 +50,7 @@ export function SiteNav() {
         </ul>
         <Link
           to="/contact"
-          className="hidden md:inline-flex items-center px-5 py-2.5 text-xs uppercase tracking-[0.25em] border border-primary/60 text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+          className="hidden md:inline-flex items-center px-5 py-2.5 text-xs uppercase tracking-[0.25em] border border-primary/60 text-primary hover:bg-primary hover:text-primary-foreground transition-all tilt-hover"
         >
           Book Session
         </Link>
