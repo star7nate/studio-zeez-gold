@@ -100,7 +100,8 @@ function Contact() {
           </ul>
         </div>
 
-        <TiltCard max={5} className="self-start" data-reveal="right">
+        <div data-reveal="right" className="self-start">
+        <TiltCard max={5}>
           <form
             onSubmit={handleSubmit}
             className="border border-border/60 bg-card/40 p-8 md:p-10 space-y-6 lift-focus depth-glow"
@@ -131,6 +132,7 @@ function Contact() {
           </button>
           </form>
         </TiltCard>
+        </div>
       </section>
     </SiteLayout>
   );
