@@ -95,7 +95,7 @@ function Index() {
       </section>
 
       {/* INTRO */}
-      <section className="max-w-5xl mx-auto px-6 lg:px-10 py-28 text-center">
+      <section className="max-w-5xl mx-auto px-6 lg:px-10 py-28 text-center" data-reveal>
         <p className="text-xs uppercase tracking-[0.4em] text-primary mb-6">The Studio</p>
         <h2 className="font-display text-4xl md:text-6xl leading-tight">
           We don't capture moments.
@@ -111,17 +111,17 @@ function Index() {
       </section>
 
       {/* FEATURED GRID */}
-      <section ref={featuredRef} className="relative max-w-7xl mx-auto px-6 lg:px-10 pb-24" style={{ transform: "translate3d(0, calc(var(--py, 0px) * 0.4), 0)" }}>
+      <section ref={featuredRef} className="relative max-w-7xl mx-auto px-6 lg:px-10 pb-24 scene-3d" style={{ transform: "translate3d(0, calc(var(--py, 0px) * 0.4), 0)" }}>
         <div className="flex items-end justify-between mb-12">
-          <div>
+          <div data-reveal="left">
             <p className="text-xs uppercase tracking-[0.4em] text-primary mb-3">Selected Work</p>
             <h3 className="font-display text-3xl md:text-5xl">Recent Frames</h3>
           </div>
-          <Link to="/gallery" className="hidden md:inline-flex items-center gap-2 text-sm text-primary hover:gap-3 transition-all">
+          <Link to="/gallery" className="hidden md:inline-flex items-center gap-2 text-sm text-primary hover:gap-3 transition-all tilt-hover" data-reveal="right">
             All work <ArrowRight size={14} />
           </Link>
         </div>
-        <div className="grid grid-cols-12 gap-4 md:gap-6">
+        <div className="grid grid-cols-12 gap-4 md:gap-6 preserve-3d">
           {[
             { src: upSmoke, span: "col-span-12 md:col-span-7 row-span-2 aspect-[4/5] md:aspect-auto", label: "Editorial" },
             { src: upPurple, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait" },
@@ -131,8 +131,12 @@ function Index() {
             { src: upTealSit, span: "col-span-6 md:col-span-4 aspect-[4/5]", label: "Couture" },
             { src: upSetWave, span: "col-span-12 md:col-span-4 aspect-[4/5]", label: "Set Design" },
           ].map((item, i) => (
-            <TiltCard key={i} className={`${item.span}`} max={6}>
-              <figure className="group relative h-full w-full overflow-hidden bg-card">
+            <TiltCard key={i} className={`${item.span}`} max={8}>
+              <figure
+                className="group relative h-full w-full overflow-hidden bg-card depth-glow"
+                data-reveal="zoom"
+                style={{ transform: `translateZ(${(i % 3) * 12 - 12}px)` }}
+              >
                 <img
                   src={item.src}
                   alt={`${item.label} photography by Studio Zeez`}
@@ -151,14 +155,14 @@ function Index() {
 
       {/* SERVICES STRIP */}
       <section className="border-y border-border/40 bg-card/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 grid md:grid-cols-3 gap-12">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 grid md:grid-cols-3 gap-12 scene-3d">
           {[
             { icon: Camera, title: "Editorial & Fashion", text: "Story-driven shoots for magazines, look-books, and brand campaigns." },
             { icon: Star, title: "Weddings & Events", text: "Elegant, cinematic coverage of once-in-a-lifetime celebrations." },
             { icon: Camera, title: "Brand & Product", text: "Luxury still life and lifestyle imagery that elevates the object." },
           ].map((s, i) => (
-            <div key={i} className="group">
-              <s.icon className="text-primary mb-5" size={32} strokeWidth={1.2} />
+            <div key={i} className="group stage-card p-2" data-reveal style={{ transitionDelay: `${i * 80}ms` }}>
+              <s.icon className="text-primary mb-5 tilt-hover" size={32} strokeWidth={1.2} />
               <h4 className="font-display text-2xl mb-3">{s.title}</h4>
               <p className="text-muted-foreground leading-relaxed">{s.text}</p>
             </div>
@@ -167,7 +171,7 @@ function Index() {
       </section>
 
       {/* TESTIMONIAL */}
-      <section className="max-w-4xl mx-auto px-6 lg:px-10 py-28 text-center">
+      <section className="max-w-4xl mx-auto px-6 lg:px-10 py-28 text-center" data-reveal="zoom">
         <p className="text-xs uppercase tracking-[0.4em] text-primary mb-8">Praise</p>
         <blockquote className="font-display text-2xl md:text-4xl leading-snug italic">
           "Zeez doesn't just photograph you — they reveal the version of you that
@@ -180,9 +184,10 @@ function Index() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden" data-reveal>
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24">
-          <div className="border border-primary/30 p-12 md:p-20 text-center bg-gradient-dark shadow-elegant">
+          <div className="border border-primary/30 p-12 md:p-20 text-center bg-gradient-dark shadow-elegant relative overflow-hidden">
+            <ParticleField />
             <h2 className="font-display text-4xl md:text-6xl">
               Let's create something <span className="text-gradient-gold italic">unforgettable.</span>
             </h2>
