@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Camera, Heart, Sparkles, Building2, ArrowRight } from "lucide-react";
+import { TiltCard } from "@/components/TiltCard";
+import { ParticleField } from "@/components/ParticleField";
 
 export const Route = createFileRoute("/services")({
   component: Services,
@@ -48,43 +50,48 @@ const services = [
 function Services() {
   return (
     <SiteLayout>
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 py-20 md:py-28">
+      <section className="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 md:py-28">
+        <ParticleField />
         <p className="text-xs uppercase tracking-[0.4em] text-primary mb-5">What We Do</p>
-        <h1 className="font-display text-5xl md:text-7xl">
+        <h1 className="font-display text-5xl md:text-7xl" data-reveal>
           Bespoke <span className="text-gradient-gold italic">commissions</span>
         </h1>
         <div className="gold-divider w-32 mt-8" />
-        <p className="mt-8 max-w-2xl text-muted-foreground text-lg leading-relaxed">
+        <p className="mt-8 max-w-2xl text-muted-foreground text-lg leading-relaxed" data-reveal>
           Every project at Studio Zeez is shaped to its subject. The packages below are a starting
           point — final scope and pricing are tailored after a brief discovery call.
         </p>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-24 grid md:grid-cols-2 gap-6">
+      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-24 grid md:grid-cols-2 gap-6 scene-3d">
         {services.map((s, i) => (
-          <article
-            key={i}
-            className="group relative border border-border/60 p-10 bg-card/40 hover:border-primary/60 hover:shadow-gold transition-all duration-500"
-          >
-            <div className="flex items-start justify-between mb-6">
-              <s.icon className="text-primary" size={36} strokeWidth={1.2} />
-              <span className="text-xs uppercase tracking-[0.3em] text-primary">{s.price}</span>
-            </div>
-            <h3 className="font-display text-3xl mb-4">{s.title}</h3>
-            <p className="text-muted-foreground leading-relaxed mb-6">{s.text}</p>
-            <ul className="space-y-2 text-sm text-muted-foreground border-t border-border/40 pt-5">
-              {s.features.map((f, j) => (
-                <li key={j} className="flex items-center gap-3">
-                  <span className="h-px w-4 bg-primary" /> {f}
-                </li>
-              ))}
-            </ul>
-          </article>
+          <TiltCard key={i} max={6} className="animate-drift-slow" >
+            <article
+              data-reveal={i % 2 === 0 ? "left" : "right"}
+              style={{ transitionDelay: `${i * 60}ms`, animationDelay: `${i * 0.7}s` }}
+              className="group relative border border-border/60 p-10 bg-card/40 hover:border-primary/60 hover:shadow-gold transition-all duration-500 stage-card depth-glow h-full"
+            >
+              <div className="flex items-start justify-between mb-6">
+                <s.icon className="text-primary tilt-hover" size={36} strokeWidth={1.2} style={{ transform: "translateZ(30px)" }} />
+                <span className="text-xs uppercase tracking-[0.3em] text-primary">{s.price}</span>
+              </div>
+              <h3 className="font-display text-3xl mb-4">{s.title}</h3>
+              <p className="text-muted-foreground leading-relaxed mb-6">{s.text}</p>
+              <ul className="space-y-2 text-sm text-muted-foreground border-t border-border/40 pt-5">
+                {s.features.map((f, j) => (
+                  <li key={j} className="flex items-center gap-3">
+                    <span className="h-px w-4 bg-primary" /> {f}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </TiltCard>
         ))}
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-28">
-        <div className="border border-primary/30 p-12 md:p-16 text-center bg-gradient-dark shadow-elegant">
+      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-28" data-reveal="zoom">
+        <div className="relative overflow-hidden border border-primary/30 p-12 md:p-16 text-center bg-gradient-dark shadow-elegant">
+          <ParticleField />
           <h2 className="font-display text-3xl md:text-5xl">
             Have something <span className="text-gradient-gold italic">unconventional</span> in mind?
           </h2>

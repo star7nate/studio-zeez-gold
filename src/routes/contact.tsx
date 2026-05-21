@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Mail, Phone, MapPin, Send, CreditCard } from "lucide-react";
 import { useState } from "react";
+import { ParticleField } from "@/components/ParticleField";
+import { TiltCard } from "@/components/TiltCard";
 
 const studioEmail = "Studiozeez@gmail.com";
 const paymentLink = "https://kindlybook.me/Studio_zeez";
@@ -47,8 +49,9 @@ function Contact() {
 
   return (
     <SiteLayout>
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-16">
-        <div>
+      <section className="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-16 scene-3d">
+        <ParticleField />
+        <div data-reveal="left">
           <p className="text-xs uppercase tracking-[0.4em] text-primary mb-5">Get in Touch</p>
           <h1 className="font-display text-5xl md:text-7xl leading-[1]">
             Begin your <span className="text-gradient-gold italic">commission</span>
@@ -59,28 +62,28 @@ function Contact() {
             days.
           </p>
           <ul className="mt-12 space-y-6">
-            <li className="flex items-start gap-4">
+            <li className="flex items-start gap-4 tilt-hover" data-reveal style={{ transitionDelay: "60ms" }}>
               <Mail className="text-primary mt-1" size={20} />
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Email</p>
                 <p className="text-foreground mt-1">{studioEmail}</p>
               </div>
             </li>
-            <li className="flex items-start gap-4">
+            <li className="flex items-start gap-4 tilt-hover" data-reveal style={{ transitionDelay: "120ms" }}>
               <Phone className="text-primary mt-1" size={20} />
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Phone</p>
                 <p className="text-foreground mt-1">+2348131117298</p>
               </div>
             </li>
-            <li className="flex items-start gap-4">
+            <li className="flex items-start gap-4 tilt-hover" data-reveal style={{ transitionDelay: "180ms" }}>
               <MapPin className="text-primary mt-1" size={20} />
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Instagram</p>
                 <p className="text-foreground mt-1">@studio_zeez</p>
               </div>
             </li>
-            <li className="flex items-start gap-4">
+            <li className="flex items-start gap-4 tilt-hover" data-reveal style={{ transitionDelay: "240ms" }}>
               <CreditCard className="text-primary mt-1" size={20} />
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Payment</p>
@@ -97,10 +100,12 @@ function Contact() {
           </ul>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="border border-border/60 bg-card/40 p-8 md:p-10 space-y-6"
-        >
+        <div data-reveal="right" className="self-start">
+        <TiltCard max={5}>
+          <form
+            onSubmit={handleSubmit}
+            className="border border-border/60 bg-card/40 p-8 md:p-10 space-y-6 lift-focus depth-glow"
+          >
           <div className="grid grid-cols-2 gap-4">
             <Field label="First name" name="first" />
             <Field label="Last name" name="last" />
@@ -125,7 +130,9 @@ function Contact() {
           >
             {sent ? "Thank you — we'll be in touch" : (<>Send Inquiry <Send size={16} /></>)}
           </button>
-        </form>
+          </form>
+        </TiltCard>
+        </div>
       </section>
     </SiteLayout>
   );

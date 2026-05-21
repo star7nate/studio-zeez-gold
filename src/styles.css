@@ -216,3 +216,77 @@
   }
   .animate-drift { animation: drift 7s ease-in-out infinite; }
 }
+
+@layer utilities {
+  /* Scroll-reveal: add data-reveal to any element, optional data-reveal-dir */
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) rotateX(6deg);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  [data-reveal="left"] { transform: translate3d(-40px, 0, 0) rotateY(-6deg); }
+  [data-reveal="right"] { transform: translate3d(40px, 0, 0) rotateY(6deg); }
+  [data-reveal="zoom"] { transform: scale(0.94); }
+  [data-revealed="true"] {
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) scale(1) !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+
+  /* Lift card on focus-within for forms */
+  .lift-focus {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s;
+    transform-style: preserve-3d;
+  }
+  .lift-focus:focus-within {
+    transform: translateZ(20px) translateY(-4px);
+    box-shadow: var(--shadow-gold);
+  }
+
+  /* Nav lift on scroll */
+  .nav-lift {
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+  }
+  .nav-lift[data-scrolled="true"] {
+    box-shadow: 0 10px 40px -20px oklch(0 0 0 / 0.6);
+    background-color: oklch(0.10 0.005 60 / 0.85);
+  }
+
+  /* Tilt-on-hover for small inline elements (icons, chips) */
+  .tilt-hover {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-style: preserve-3d;
+  }
+  .tilt-hover:hover {
+    transform: translateZ(12px) rotateX(-8deg) rotateY(8deg);
+  }
+
+  /* Service card stage */
+  .stage-card {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage-card::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    background: var(--gradient-dark);
+    transform: translateZ(-30px);
+    filter: blur(20px);
+    opacity: 0.5;
+    z-index: -1;
+  }
+  .stage-card:hover { transform: translateZ(18px) rotateX(2deg); }
+
+  @keyframes drift-slow {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    50% { transform: translate3d(0, -6px, 0) rotate(-0.5deg); }
+  }
+  .animate-drift-slow { animation: drift-slow 9s ease-in-out infinite; }
+}
