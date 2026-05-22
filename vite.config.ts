@@ -7,14 +7,24 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { imagetools } from "vite-imagetools";
 
+// Opt-in image transforms. Use ?picture import suffix to get
+// { sources: { avif, webp }, img: { src, w, h } } shape.
+// Example:
+//   import hero from "./hero.jpg?picture";
+//   <SmartImage picture={hero} sizes="(max-width: 768px) 100vw, 60vw" />
 export default defineConfig({
   vite: {
     plugins: [
       imagetools({
         defaultDirectives: (url) => {
-          // Apply defaults only when caller didn't pass any params
-          if (url.searchParams.size > 0) return new URLSearchParams();
-          return new URLSearchParams({ format: "avif;webp;jpg", as: "picture" });
+          if (url.searchParams.has("picture")) {
+            return new URLSearchParams({
+              format: "avif;webp;jpg",
+              w: "480;960;1440;1920",
+              as: "picture",
+            });
+          }
+          return new URLSearchParams();
         },
       }),
     ],
