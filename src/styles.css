@@ -290,3 +290,21 @@
   }
   .animate-drift-slow { animation: drift-slow 9s ease-in-out infinite; }
 }
+
+@layer utilities {
+  /* Infinite marquee */
+  .marquee { display: flex; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 38s linear infinite;
+    will-change: transform;
+  }
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+}
