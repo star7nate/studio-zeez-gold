@@ -1,19 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Camera, Star } from "lucide-react";
+import { ArrowRight, Camera, Star, Aperture, Sparkles, Film } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { TiltCard } from "@/components/TiltCard";
 import { ParticleField } from "@/components/ParticleField";
+import { SmartImage } from "@/components/SmartImage";
 import { useParallax } from "@/hooks/useParallax";
 import { useMouseParallax } from "@/hooks/useMouseParallax";
-import hero from "@/assets/studio-zeez-hero.jpg";
-import watch from "@/assets/studio-zeez-product-watch.jpg";
-import upPurple from "@/assets/upload-portrait-purple.jpg";
-import upFamily from "@/assets/upload-family-portrait.jpg";
-import upSmoke from "@/assets/upload-smoke-portrait.jpg";
-import upWhiteShirt from "@/assets/upload-white-shirt.jpg";
-import upTealSit from "@/assets/upload-teal-sit.jpg";
-import upNyCap from "@/assets/upload-ny-cap.jpg";
-import upSetWave from "@/assets/upload-set-wave.jpg";
+import heroUrl from "@/assets/studio-zeez-hero.jpg";
+import hero from "@/assets/studio-zeez-hero.jpg?picture";
+import watch from "@/assets/studio-zeez-product-watch.jpg?picture";
+import upPurple from "@/assets/upload-portrait-purple.jpg?picture";
+import upFamily from "@/assets/upload-family-portrait.jpg?picture";
+import upSmoke from "@/assets/upload-smoke-portrait.jpg?picture";
+import upWhiteShirt from "@/assets/upload-white-shirt.jpg?picture";
+import upTealSit from "@/assets/upload-teal-sit.jpg?picture";
+import upNyCap from "@/assets/upload-ny-cap.jpg?picture";
+import upSetWave from "@/assets/upload-set-wave.jpg?picture";
+import upDenim from "@/assets/upload-denim-ladder.jpg?picture";
+import upBlackDress from "@/assets/upload-black-dress.jpg?picture";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -21,14 +25,17 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Studio Zeez — Luxury Photography in Gold & Black" },
       { name: "description", content: "Cinematic, gold-touched photography by Studio Zeez. Editorial portraits, weddings, fashion, and luxury brand imagery." },
-      { property: "og:image", content: hero },
-      { name: "twitter:image", content: hero },
+      { property: "og:image", content: heroUrl },
+      { name: "twitter:image", content: heroUrl },
+    ],
+    links: [
+      { rel: "preload", as: "image", href: hero.img.src, imagesrcset: hero.sources.webp, imagesizes: "(max-width: 768px) 100vw, 60vw", fetchpriority: "high" } as never,
     ],
   }),
 });
 
 function Index() {
-  const heroImgRef = useParallax(0.25) as React.RefObject<HTMLImageElement>;
+  const heroImgRef = useParallax(0.25) as React.RefObject<HTMLDivElement>;
   const featuredRef = useParallax(0.12) as React.RefObject<HTMLDivElement>;
   const heroSceneRef = useMouseParallax(18) as React.RefObject<HTMLDivElement>;
   return (
@@ -37,23 +44,27 @@ function Index() {
       <section ref={heroSceneRef} className="relative min-h-[92vh] overflow-hidden bg-gradient-dark scene-3d">
         <ParticleField className="z-0" />
         <div className="absolute inset-0 preserve-3d">
-          <img
+          <div
             ref={heroImgRef}
-            src={hero}
-            alt="Studio Zeez beauty portrait photographed in studio light"
-            width={1080}
-            height={1920}
-            className="absolute right-0 top-0 h-full w-full md:w-3/5 object-cover object-center will-change-transform floating-frame"
+            className="absolute right-0 top-0 h-full w-full md:w-3/5 will-change-transform floating-frame"
             style={{ transform: "translate3d(0, var(--py, 0px), 0) scale(1.08)" }}
-          />
+          >
+            <SmartImage
+              picture={hero}
+              priority
+              sizes="(max-width: 768px) 100vw, 60vw"
+              alt="Studio Zeez beauty portrait photographed in studio light"
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 md:via-background/60 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
           {/* Floating depth layers */}
           <div className="hidden md:block absolute top-24 right-[58%] w-40 h-56 overflow-hidden border border-primary/30 shadow-elegant floating-frame animate-drift" style={{ transform: "translate3d(var(--mx,0px), var(--my,0px), 60px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg))" }}>
-            <img src={upWhiteShirt} alt="" className="h-full w-full object-cover opacity-90" />
+            <SmartImage picture={upWhiteShirt} sizes="160px" alt="" className="h-full w-full object-cover opacity-90" />
           </div>
           <div className="hidden md:block absolute bottom-24 right-[62%] w-32 h-44 overflow-hidden border border-primary/20 shadow-elegant floating-frame animate-drift" style={{ animationDelay: "1.4s", transform: "translate3d(calc(var(--mx,0px) * -0.6), calc(var(--my,0px) * -0.6), 30px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg))" }}>
-            <img src={upTealSit} alt="" className="h-full w-full object-cover opacity-90" />
+            <SmartImage picture={upTealSit} sizes="128px" alt="" className="h-full w-full object-cover opacity-90" />
           </div>
         </div>
 
@@ -86,11 +97,41 @@ function Index() {
                 Book a Session
               </Link>
             </div>
+            <dl className="mt-14 grid grid-cols-3 gap-6 max-w-lg" data-reveal>
+              {[
+                { k: "120+", v: "Commissions" },
+                { k: "8 yrs", v: "In studio" },
+                { k: "14", v: "Publications" },
+              ].map((s) => (
+                <div key={s.v} className="border-l border-primary/30 pl-4">
+                  <dt className="font-display text-3xl md:text-4xl text-gradient-gold">{s.k}</dt>
+                  <dd className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-1">{s.v}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs uppercase tracking-[0.4em] text-muted-foreground animate-shimmer">
           Scroll
+        </div>
+      </section>
+
+      {/* MARQUEE STRIP */}
+      <section aria-label="Featured in" className="border-y border-border/40 bg-card/20 overflow-hidden">
+        <div className="marquee py-6">
+          <div className="marquee-track text-xs uppercase tracking-[0.4em] text-muted-foreground">
+            {Array.from({ length: 2 }).map((_, n) => (
+              <div key={n} className="flex items-center gap-12 px-6 shrink-0" aria-hidden={n === 1}>
+                {["Vogue Italia", "Harper's Bazaar", "Numéro", "Dazed", "WSJ Magazine", "Hypebeast", "L'Officiel", "ELLE"].map((b) => (
+                  <span key={b} className="flex items-center gap-12">
+                    <span className="text-primary/80">{b}</span>
+                    <span className="h-px w-12 bg-primary/30" />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -123,13 +164,13 @@ function Index() {
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 preserve-3d">
           {[
-            { src: upSmoke, span: "col-span-12 md:col-span-7 row-span-2 aspect-[4/5] md:aspect-auto", label: "Editorial" },
-            { src: upPurple, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait" },
-            { src: watch, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Product" },
-            { src: upFamily, span: "col-span-12 md:col-span-7 aspect-[16/10]", label: "Family" },
-            { src: upNyCap, span: "col-span-6 md:col-span-4 aspect-[4/5]", label: "Street" },
-            { src: upTealSit, span: "col-span-6 md:col-span-4 aspect-[4/5]", label: "Couture" },
-            { src: upSetWave, span: "col-span-12 md:col-span-4 aspect-[4/5]", label: "Set Design" },
+            { pic: upSmoke, span: "col-span-12 md:col-span-7 row-span-2 aspect-[4/5] md:aspect-auto", label: "Editorial", sizes: "(max-width: 768px) 100vw, 58vw" },
+            { pic: upPurple, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Portrait", sizes: "(max-width: 768px) 50vw, 42vw" },
+            { pic: watch, span: "col-span-6 md:col-span-5 aspect-[4/5]", label: "Product", sizes: "(max-width: 768px) 50vw, 42vw" },
+            { pic: upFamily, span: "col-span-12 md:col-span-7 aspect-[16/10]", label: "Family", sizes: "(max-width: 768px) 100vw, 58vw" },
+            { pic: upNyCap, span: "col-span-6 md:col-span-4 aspect-[4/5]", label: "Street", sizes: "(max-width: 768px) 50vw, 33vw" },
+            { pic: upTealSit, span: "col-span-6 md:col-span-4 aspect-[4/5]", label: "Couture", sizes: "(max-width: 768px) 50vw, 33vw" },
+            { pic: upSetWave, span: "col-span-12 md:col-span-4 aspect-[4/5]", label: "Set Design", sizes: "(max-width: 768px) 100vw, 33vw" },
           ].map((item, i) => (
             <TiltCard key={i} className={`${item.span}`} max={8}>
               <figure
@@ -137,10 +178,10 @@ function Index() {
                 data-reveal="zoom"
                 style={{ transform: `translateZ(${(i % 3) * 12 - 12}px)` }}
               >
-                <img
-                  src={item.src}
+                <SmartImage
+                  picture={item.pic}
                   alt={`${item.label} photography by Studio Zeez`}
-                  loading="lazy"
+                  sizes={item.sizes}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-80" />
@@ -150,6 +191,33 @@ function Index() {
               </figure>
             </TiltCard>
           ))}
+        </div>
+      </section>
+
+      {/* PROCESS */}
+      <section className="relative bg-card/20 border-y border-border/40 overflow-hidden">
+        <ParticleField className="opacity-50" />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 py-24">
+          <div className="text-center mb-16" data-reveal>
+            <p className="text-xs uppercase tracking-[0.4em] text-primary mb-4">The Process</p>
+            <h3 className="font-display text-4xl md:text-6xl">A <span className="text-gradient-gold italic">three-act</span> craft.</h3>
+          </div>
+          <ol className="grid md:grid-cols-3 gap-6 scene-3d">
+            {[
+              { icon: Aperture, n: "01", t: "Concept", d: "Mood, references, and a shared visual language tailored to the subject." },
+              { icon: Film, n: "02", t: "Capture", d: "Cinematic lighting and direction inside our studio or on location." },
+              { icon: Sparkles, n: "03", t: "Finish", d: "Hand-graded color, sculpted retouching, and gallery-ready delivery." },
+            ].map((p, i) => (
+              <li key={p.n} className="stage-card p-8 border border-border/60 bg-background/40" data-reveal style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="flex items-center justify-between mb-6">
+                  <p.icon className="text-primary tilt-hover" size={28} strokeWidth={1.2} />
+                  <span className="font-display text-3xl text-gradient-gold">{p.n}</span>
+                </div>
+                <h4 className="font-display text-2xl mb-3">{p.t}</h4>
+                <p className="text-muted-foreground leading-relaxed">{p.d}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -168,6 +236,23 @@ function Index() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* DIPTYCH */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-6 scene-3d">
+        {[upDenim, upBlackDress].map((pic, i) => (
+          <TiltCard key={i} className="aspect-[4/5]" max={6}>
+            <figure className="relative h-full w-full overflow-hidden floating-frame depth-glow" data-reveal={i === 0 ? "left" : "right"}>
+              <SmartImage
+                picture={pic}
+                alt="Studio Zeez editorial frame"
+                sizes="(max-width: 768px) 100vw, 48vw"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+            </figure>
+          </TiltCard>
+        ))}
       </section>
 
       {/* TESTIMONIAL */}
