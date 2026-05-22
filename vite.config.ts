@@ -5,5 +5,18 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { imagetools } from "vite-imagetools";
 
-export default defineConfig();
+export default defineConfig({
+  vite: {
+    plugins: [
+      imagetools({
+        defaultDirectives: (url) => {
+          // Apply defaults only when caller didn't pass any params
+          if (url.searchParams.size > 0) return new URLSearchParams();
+          return new URLSearchParams({ format: "avif;webp;jpg", as: "picture" });
+        },
+      }),
+    ],
+  },
+});
