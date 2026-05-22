@@ -5,5 +5,28 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { imagetools } from "vite-imagetools";
 
-export default defineConfig();
+// Opt-in image transforms. Use ?picture import suffix to get
+// { sources: { avif, webp }, img: { src, w, h } } shape.
+// Example:
+//   import hero from "./hero.jpg?picture";
+//   <SmartImage picture={hero} sizes="(max-width: 768px) 100vw, 60vw" />
+export default defineConfig({
+  vite: {
+    plugins: [
+      imagetools({
+        defaultDirectives: (url) => {
+          if (url.searchParams.has("picture")) {
+            return new URLSearchParams({
+              format: "avif;webp;jpg",
+              w: "480;960;1440;1920",
+              as: "picture",
+            });
+          }
+          return new URLSearchParams();
+        },
+      }),
+    ],
+  },
+});

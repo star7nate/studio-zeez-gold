@@ -20,6 +20,7 @@ export function ParticleField({ className = "" }: { className?: string }) {
     const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.25 : 2);
     let raf = 0;
     let running = true;
+    let inView = true;
 
     type P = { x: number; y: number; r: number; vx: number; vy: number; a: number };
     let particles: P[] = [];
@@ -66,9 +67,23 @@ export function ParticleField({ className = "" }: { className?: string }) {
     };
 
     const onVis = () => {
-      running = !document.hidden;
-      if (running) draw();
+      running = !document.hidden && inView;
+      if (running && !raf) draw();
     };
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        running = !document.hidden && inView;
+        if (running && !raf) draw();
+        else if (!running && raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      },
+      { rootMargin: "100px" },
+    );
+    io.observe(canvas);
 
     resize();
     draw();
@@ -78,6 +93,7 @@ export function ParticleField({ className = "" }: { className?: string }) {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVis);
+      io.disconnect();
     };
   }, []);
 
