@@ -14,6 +14,9 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as BookSlugRouteImport } from './routes/book.$slug'
+import { Route as BookSlugConfirmRouteImport } from './routes/book.$slug.confirm'
+import { Route as BookSlugPaymentRouteImport } from './routes/book.$slug.payment'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +43,21 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookSlugRoute = BookSlugRouteImport.update({
+  id: '/book/$slug',
+  path: '/book/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookSlugConfirmRoute = BookSlugConfirmRouteImport.update({
+  id: '/confirm',
+  path: '/confirm',
+  getParentRoute: () => BookSlugRoute,
+} as any)
+const BookSlugPaymentRoute = BookSlugPaymentRouteImport.update({
+  id: '/payment',
+  path: '/payment',
+  getParentRoute: () => BookSlugRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +65,9 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
+  '/book/$slug': typeof BookSlugRouteWithChildren
+  '/book/$slug/confirm': typeof BookSlugConfirmRoute
+  '/book/$slug/payment': typeof BookSlugPaymentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +75,9 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
+  '/book/$slug': typeof BookSlugRouteWithChildren
+  '/book/$slug/confirm': typeof BookSlugConfirmRoute
+  '/book/$slug/payment': typeof BookSlugPaymentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +86,41 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
+  '/book/$slug': typeof BookSlugRouteWithChildren
+  '/book/$slug/confirm': typeof BookSlugConfirmRoute
+  '/book/$slug/payment': typeof BookSlugPaymentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/gallery' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/gallery'
+    | '/services'
+    | '/book/$slug'
+    | '/book/$slug/confirm'
+    | '/book/$slug/payment'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/gallery' | '/services'
-  id: '__root__' | '/' | '/about' | '/contact' | '/gallery' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/gallery'
+    | '/services'
+    | '/book/$slug'
+    | '/book/$slug/confirm'
+    | '/book/$slug/payment'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/gallery'
+    | '/services'
+    | '/book/$slug'
+    | '/book/$slug/confirm'
+    | '/book/$slug/payment'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +129,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   ServicesRoute: typeof ServicesRoute
+  BookSlugRoute: typeof BookSlugRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -116,8 +169,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/book/$slug': {
+      id: '/book/$slug'
+      path: '/book/$slug'
+      fullPath: '/book/$slug'
+      preLoaderRoute: typeof BookSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book/$slug/confirm': {
+      id: '/book/$slug/confirm'
+      path: '/confirm'
+      fullPath: '/book/$slug/confirm'
+      preLoaderRoute: typeof BookSlugConfirmRouteImport
+      parentRoute: typeof BookSlugRoute
+    }
+    '/book/$slug/payment': {
+      id: '/book/$slug/payment'
+      path: '/payment'
+      fullPath: '/book/$slug/payment'
+      preLoaderRoute: typeof BookSlugPaymentRouteImport
+      parentRoute: typeof BookSlugRoute
+    }
   }
 }
+
+interface BookSlugRouteChildren {
+  BookSlugConfirmRoute: typeof BookSlugConfirmRoute
+  BookSlugPaymentRoute: typeof BookSlugPaymentRoute
+}
+
+const BookSlugRouteChildren: BookSlugRouteChildren = {
+  BookSlugConfirmRoute: BookSlugConfirmRoute,
+  BookSlugPaymentRoute: BookSlugPaymentRoute,
+}
+
+const BookSlugRouteWithChildren = BookSlugRoute._addFileChildren(
+  BookSlugRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -125,6 +213,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   ServicesRoute: ServicesRoute,
+  BookSlugRoute: BookSlugRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

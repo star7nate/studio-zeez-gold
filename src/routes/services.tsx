@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
-import { Camera, Heart, Sparkles, Building2, Home, Users, Clock, Armchair, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { TiltCard } from "@/components/TiltCard";
 import { ParticleField } from "@/components/ParticleField";
+import { packages } from "@/lib/booking";
 
 export const Route = createFileRoute("/services")({
   component: Services,
@@ -16,96 +17,7 @@ export const Route = createFileRoute("/services")({
   }),
 });
 
-const services = [
-  {
-    icon: Camera,
-    title: "Full Session — Content Studio",
-    price: "₦200,000",
-    duration: "90 mins",
-    text: "Full photo shoot session in our content studio. 3 outfits with 10 edited pictures.",
-    features: ["3 outfits", "10 edited pictures", "Content studio"],
-  },
-  {
-    icon: Clock,
-    title: "Half Session — Content Studio",
-    price: "₦150,000",
-    duration: "60 mins",
-    text: "Half session in our content studio. 2 outfits with 6 edited pictures.",
-    features: ["2 outfits", "6 edited pictures", "Content studio"],
-  },
-  {
-    icon: Sparkles,
-    title: "Mini Session — Content Studio",
-    price: "₦100,000",
-    duration: "30 mins",
-    text: "Quick studio session. 1 outfit with 3 edited pictures.",
-    features: ["1 outfit", "3 edited pictures", "Content studio"],
-  },
-  {
-    icon: Clock,
-    title: "Half Session — Content Space",
-    price: "₦50,000",
-    duration: "30 mins",
-    text: "Half session in our content space. 2 outfits with 6 edited pictures.",
-    features: ["2 outfits", "6 edited pictures", "Content space"],
-  },
-  {
-    icon: Armchair,
-    title: "Designer Space Session",
-    price: "₦140,000",
-    duration: "60 mins",
-    text: "A designer space for photography and video to enhance your picture quality.",
-    features: ["Designer setup", "Photo + video ready", "60 minutes"],
-  },
-  {
-    icon: Home,
-    title: "Home Service",
-    price: "₦300,000",
-    duration: "90 mins",
-    text: "Outdoor shoot with 2–3 outfits and 10 edited pictures. All raw pictures from the session are sent to you via Google Drive.",
-    features: ["Outdoor shoot", "2–3 outfits", "10 edited pictures", "All raw files via Google Drive"],
-  },
-  {
-    icon: Users,
-    title: "Family Session",
-    price: "₦450,000",
-    duration: "90 mins",
-    text: "Family shoot with 15 edited pictures and one 24×36 frame enlargement.",
-    features: ["15 edited pictures", "24×36 frame enlargement", "90 minutes"],
-  },
-  {
-    icon: Building2,
-    title: "Content Space for Rent — Single Setup",
-    price: "₦20,000",
-    duration: "30 mins",
-    text: "Use a particular setup of your choice in our content space for 30 minutes.",
-    features: ["One setup of choice", "30 minutes", "No shoot included"],
-  },
-  {
-    icon: Building2,
-    title: "Content Space for Rent — Full Setup",
-    price: "₦50,000",
-    duration: "60 mins",
-    text: "Use the whole setup in our content space for one hour.",
-    features: ["Whole setup access", "60 minutes", "No shoot included"],
-  },
-  {
-    icon: Users,
-    title: "Family Session — Without Frame",
-    price: "₦350,000",
-    duration: "90 mins",
-    text: "Family shoot without frame. 12 retouched pictures, with all unedited pictures sent via Google Drive.",
-    features: ["12 retouched pictures", "All raw files via Google Drive", "90 minutes"],
-  },
-  {
-    icon: Camera,
-    title: "1 Outfit — Content Space",
-    price: "₦70,000",
-    duration: "30 mins",
-    text: "One outfit at the content space: ₦20,000 for 30 minutes space rental + ₦50,000 for the shoot.",
-    features: ["1 outfit", "3 edited pictures", "Space rental + shoot"],
-  },
-];
+const services = packages;
 
 function Services() {
   return (
@@ -125,10 +37,12 @@ function Services() {
       <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-24 grid md:grid-cols-2 gap-6 scene-3d">
         {services.map((s, i) => (
           <TiltCard key={i} max={6} className="animate-drift-slow" >
-            <article
+            <Link
+              to="/book/$slug"
+              params={{ slug: s.slug }}
               data-reveal={i % 2 === 0 ? "left" : "right"}
               style={{ transitionDelay: `${i * 60}ms`, animationDelay: `${i * 0.7}s` }}
-              className="group relative border border-border/60 p-10 bg-card/40 hover:border-primary/60 hover:shadow-gold transition-all duration-500 stage-card depth-glow h-full"
+              className="group relative block border border-border/60 p-10 bg-card/40 hover:border-primary/60 hover:shadow-gold transition-all duration-500 stage-card depth-glow h-full"
             >
               <div className="flex items-start justify-between mb-6">
                 <s.icon className="text-primary tilt-hover" size={36} strokeWidth={1.2} style={{ transform: "translateZ(30px)" }} />
@@ -146,7 +60,10 @@ function Services() {
                   </li>
                 ))}
               </ul>
-            </article>
+              <span className="mt-6 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-primary group-hover:gap-3 transition-all">
+                Book this session <ArrowRight size={14} />
+              </span>
+            </Link>
           </TiltCard>
         ))}
       </section>
