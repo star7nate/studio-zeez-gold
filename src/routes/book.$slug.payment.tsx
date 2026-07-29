@@ -124,7 +124,7 @@ function PaymentPage() {
                   {r.copyable && (
                     <button
                       type="button"
-                      onClick={() => copy(r.value.replace(/[^\d.-]/g, r.key === "amount" ? "" : r.value), r.key)}
+                      onClick={() => copy(r.value, r.key)}
                       className="text-muted-foreground hover:text-primary transition-colors"
                       aria-label={`Copy ${r.label}`}
                     >
