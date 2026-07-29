@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as BookSlugRouteImport } from './routes/book.$slug'
+import { Route as BookSlugPaymentRouteImport } from './routes/book.$slug.payment'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const BookSlugRoute = BookSlugRouteImport.update({
   path: '/book/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookSlugPaymentRoute = BookSlugPaymentRouteImport.update({
+  id: '/payment',
+  path: '/payment',
+  getParentRoute: () => BookSlugRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,7 +59,8 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
-  '/book/$slug': typeof BookSlugRoute
+  '/book/$slug': typeof BookSlugRouteWithChildren
+  '/book/$slug/payment': typeof BookSlugPaymentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +68,8 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
-  '/book/$slug': typeof BookSlugRoute
+  '/book/$slug': typeof BookSlugRouteWithChildren
+  '/book/$slug/payment': typeof BookSlugPaymentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,7 +78,8 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
-  '/book/$slug': typeof BookSlugRoute
+  '/book/$slug': typeof BookSlugRouteWithChildren
+  '/book/$slug/payment': typeof BookSlugPaymentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,8 +90,16 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/services'
     | '/book/$slug'
+    | '/book/$slug/payment'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/gallery' | '/services' | '/book/$slug'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/gallery'
+    | '/services'
+    | '/book/$slug'
+    | '/book/$slug/payment'
   id:
     | '__root__'
     | '/'
@@ -91,6 +108,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/services'
     | '/book/$slug'
+    | '/book/$slug/payment'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -99,7 +117,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   ServicesRoute: typeof ServicesRoute
-  BookSlugRoute: typeof BookSlugRoute
+  BookSlugRoute: typeof BookSlugRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -146,8 +164,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/book/$slug/payment': {
+      id: '/book/$slug/payment'
+      path: '/payment'
+      fullPath: '/book/$slug/payment'
+      preLoaderRoute: typeof BookSlugPaymentRouteImport
+      parentRoute: typeof BookSlugRoute
+    }
   }
 }
+
+interface BookSlugRouteChildren {
+  BookSlugPaymentRoute: typeof BookSlugPaymentRoute
+}
+
+const BookSlugRouteChildren: BookSlugRouteChildren = {
+  BookSlugPaymentRoute: BookSlugPaymentRoute,
+}
+
+const BookSlugRouteWithChildren = BookSlugRoute._addFileChildren(
+  BookSlugRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -155,7 +192,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   ServicesRoute: ServicesRoute,
-  BookSlugRoute: BookSlugRoute,
+  BookSlugRoute: BookSlugRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
