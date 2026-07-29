@@ -61,7 +61,10 @@ function BookPage() {
     if (!canSubmit || !date) return;
     setSubmitting(true);
     const existing = loadBooking();
-    const reference = existing?.packageSlug === pkg.slug && existing.reference ? existing.reference : generateReference();
+    const reference =
+      existing && existing.packageSlug === pkg.slug && existing.reference
+        ? existing.reference
+        : generateReference();
     saveBooking({
       reference,
       packageSlug: pkg.slug,
