@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, CalendarDays, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/book/$slug")({
+export const Route = createFileRoute("/book/$slug/")({
   component: BookPage,
   loader: ({ params }) => {
     const pkg = getPackage(params.slug);

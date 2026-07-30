@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as BookSlugRouteImport } from './routes/book.$slug'
+import { Route as BookSlugIndexRouteImport } from './routes/book.$slug.index'
 import { Route as BookSlugConfirmRouteImport } from './routes/book.$slug.confirm'
 import { Route as BookSlugPaymentRouteImport } from './routes/book.$slug.payment'
 
@@ -48,6 +49,11 @@ const BookSlugRoute = BookSlugRouteImport.update({
   path: '/book/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookSlugIndexRoute = BookSlugIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BookSlugRoute,
+} as any)
 const BookSlugConfirmRoute = BookSlugConfirmRouteImport.update({
   id: '/confirm',
   path: '/confirm',
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/book/$slug': typeof BookSlugRouteWithChildren
   '/book/$slug/confirm': typeof BookSlugConfirmRoute
   '/book/$slug/payment': typeof BookSlugPaymentRoute
+  '/book/$slug/': typeof BookSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,9 +82,9 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
-  '/book/$slug': typeof BookSlugRouteWithChildren
   '/book/$slug/confirm': typeof BookSlugConfirmRoute
   '/book/$slug/payment': typeof BookSlugPaymentRoute
+  '/book/$slug': typeof BookSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +96,7 @@ export interface FileRoutesById {
   '/book/$slug': typeof BookSlugRouteWithChildren
   '/book/$slug/confirm': typeof BookSlugConfirmRoute
   '/book/$slug/payment': typeof BookSlugPaymentRoute
+  '/book/$slug/': typeof BookSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +109,7 @@ export interface FileRouteTypes {
     | '/book/$slug'
     | '/book/$slug/confirm'
     | '/book/$slug/payment'
+    | '/book/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,9 +117,9 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/services'
-    | '/book/$slug'
     | '/book/$slug/confirm'
     | '/book/$slug/payment'
+    | '/book/$slug'
   id:
     | '__root__'
     | '/'
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/book/$slug'
     | '/book/$slug/confirm'
     | '/book/$slug/payment'
+    | '/book/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -176,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/book/$slug/': {
+      id: '/book/$slug/'
+      path: '/'
+      fullPath: '/book/$slug/'
+      preLoaderRoute: typeof BookSlugIndexRouteImport
+      parentRoute: typeof BookSlugRoute
+    }
     '/book/$slug/confirm': {
       id: '/book/$slug/confirm'
       path: '/confirm'
@@ -196,11 +213,13 @@ declare module '@tanstack/react-router' {
 interface BookSlugRouteChildren {
   BookSlugConfirmRoute: typeof BookSlugConfirmRoute
   BookSlugPaymentRoute: typeof BookSlugPaymentRoute
+  BookSlugIndexRoute: typeof BookSlugIndexRoute
 }
 
 const BookSlugRouteChildren: BookSlugRouteChildren = {
   BookSlugConfirmRoute: BookSlugConfirmRoute,
   BookSlugPaymentRoute: BookSlugPaymentRoute,
+  BookSlugIndexRoute: BookSlugIndexRoute,
 }
 
 const BookSlugRouteWithChildren = BookSlugRoute._addFileChildren(
@@ -218,12 +237,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
