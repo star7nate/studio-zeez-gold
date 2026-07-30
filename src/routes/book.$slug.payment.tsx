@@ -86,7 +86,7 @@ function PaymentPage() {
   return (
     <SiteLayout>
       <section className="max-w-6xl mx-auto px-6 lg:px-10 pt-8 pb-6 animate-fade-in">
-        <BookingSteps current={3} />
+        <BookingSteps current={uploaded ? 4 : 3} />
       </section>
 
       <section className="max-w-4xl mx-auto px-6 lg:px-10 py-8 md:py-12 animate-fade-in">
