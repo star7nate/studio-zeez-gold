@@ -10,7 +10,7 @@ export const Route = createFileRoute("/book/$slug/confirm")({
   loader: ({ params }) => {
     const pkg = getPackage(params.slug);
     if (!pkg) throw notFound();
-    return { pkg };
+    return { slug: pkg.slug };
   },
   head: () => ({
     meta: [
@@ -21,7 +21,8 @@ export const Route = createFileRoute("/book/$slug/confirm")({
 });
 
 function ConfirmPage() {
-  const { pkg } = Route.useLoaderData();
+  const { slug } = Route.useLoaderData();
+  const pkg = getPackage(slug)!;
   const navigate = useNavigate();
   const [booking, setBooking] = useState<BookingDetails | null>(null);
   const [sent, setSent] = useState(false);
