@@ -12,11 +12,11 @@ export const Route = createFileRoute("/book/$slug")({
   loader: ({ params }) => {
     const pkg = getPackage(params.slug);
     if (!pkg) throw notFound();
-    return { pkg };
+    return { slug: pkg.slug, title: pkg.title };
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: loaderData ? `Book ${loaderData.pkg.title} — Studio Zeez` : "Book — Studio Zeez" },
+      { title: loaderData ? `Book ${loaderData.title} — Studio Zeez` : "Book — Studio Zeez" },
       { name: "description", content: "Select a date and time and share your details to begin your Studio Zeez booking." },
       { property: "og:title", content: "Book your session — Studio Zeez" },
       { property: "og:description", content: "Reserve your Studio Zeez photography session." },
@@ -25,7 +25,8 @@ export const Route = createFileRoute("/book/$slug")({
 });
 
 function BookPage() {
-  const { pkg } = Route.useLoaderData();
+  const { slug } = Route.useLoaderData();
+  const pkg = getPackage(slug)!;
   const navigate = useNavigate();
   const [date, setDate] = useState<Date | undefined>();
   const [time, setTime] = useState<string>("");

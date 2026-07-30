@@ -11,7 +11,7 @@ export const Route = createFileRoute("/book/$slug/payment")({
   loader: ({ params }) => {
     const pkg = getPackage(params.slug);
     if (!pkg) throw notFound();
-    return { pkg };
+    return { slug: pkg.slug };
   },
   head: () => ({
     meta: [
@@ -22,7 +22,8 @@ export const Route = createFileRoute("/book/$slug/payment")({
 });
 
 function PaymentPage() {
-  const { pkg } = Route.useLoaderData();
+  const { slug } = Route.useLoaderData();
+  const pkg = getPackage(slug)!;
   const navigate = useNavigate();
   const [booking, setBooking] = useState(() => loadBooking());
   const [copied, setCopied] = useState<string | null>(null);
