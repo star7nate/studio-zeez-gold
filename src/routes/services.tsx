@@ -72,6 +72,7 @@ function Services() {
         <div className="mb-16 border border-primary/30 bg-card/40 p-8 md:p-10">
           <h2 className="font-display text-2xl md:text-3xl">Wedding &amp; event <span className="text-gradient-gold italic">terms</span></h2>
           <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+            <li className="flex gap-3"><span className="h-px w-4 bg-primary mt-2 shrink-0" /> Silver packages: 1–4 (₦360,000 – ₦850,000). Golden packages: 5–6 (₦1,000,000 – ₦1,200,000).</li>
             <li className="flex gap-3"><span className="h-px w-4 bg-primary mt-2 shrink-0" /> Mode of payment: 75–80% upfront.</li>
             <li className="flex gap-3"><span className="h-px w-4 bg-primary mt-2 shrink-0" /> If the event runs for 2 days, an additional 30% of the chosen package applies for the second day.</li>
             <li className="flex gap-3"><span className="h-px w-4 bg-primary mt-2 shrink-0" /> For venues outside Lagos, the client is responsible for our logistics.</li>
