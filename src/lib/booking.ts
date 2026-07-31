@@ -23,6 +23,12 @@ export const packages: Package[] = [
   { slug: "content-space-full-setup", icon: Building2, title: "Content Space for Rent — Full Setup", price: "₦50,000", priceValue: 50000, duration: "60 mins", text: "Use the whole setup in our content space for one hour.", features: ["Whole setup access", "60 minutes", "No shoot included"] },
   { slug: "family-session-no-frame", icon: Users, title: "Family Session — Without Frame", price: "₦350,000", priceValue: 350000, duration: "90 mins", text: "Family shoot without frame. 12 retouched pictures, with all unedited pictures sent via Google Drive.", features: ["12 retouched pictures", "All raw files via Google Drive", "90 minutes"] },
   { slug: "one-outfit-content-space", icon: Camera, title: "1 Outfit — Content Space", price: "₦70,000", priceValue: 70000, duration: "30 mins", text: "One outfit at the content space: ₦20,000 for 30 minutes space rental + ₦50,000 for the shoot.", features: ["1 outfit", "3 edited pictures", "Space rental + shoot"] },
+  { slug: "silver-wedding-360", icon: Heart, title: "Silver Wedding — Photobook + Frame", price: "₦360,000", priceValue: 360000, duration: "Full event", text: "Photobook size 10x20, 40 pages, plus one 16x20 frame.", features: ["Photobook 10x20 · 40 pages", "1 × 16x20 frame", "75–80% upfront"] },
+  { slug: "silver-wedding-600", icon: Heart, title: "Silver Wedding — Photobook + Video", price: "₦600,000", priceValue: 600000, duration: "Full event", text: "Photobook size 8x20, 50 pages, plus video coverage and one 16x20 frame.", features: ["Photobook 8x20 · 50 pages", "Video coverage", "1 × 16x20 frame"] },
+  { slug: "silver-wedding-700", icon: Heart, title: "Silver Wedding — Photobook, Video + 2 Frames", price: "₦700,000", priceValue: 700000, duration: "Full event", text: "Photobook size 10x20, 50 pages, plus video and two 16x20 frames.", features: ["Photobook 10x20 · 50 pages", "Video coverage", "2 × 16x20 frames"] },
+  { slug: "silver-wedding-850", icon: Heart, title: "Silver Wedding — Free Prewedding", price: "₦850,000", priceValue: 850000, duration: "Full event", text: "Photobook size 12x12, 50 pages, plus video and two 16x20 frames. Includes a free prewedding shoot (1 outfit).", features: ["Photobook 12x12 · 50 pages", "Video coverage", "2 × 16x20 frames", "Free prewedding (1 outfit)"] },
+  { slug: "gold-wedding-1m", icon: Heart, title: "Wedding — Drone & Dual Video", price: "₦1,000,000", priceValue: 1000000, duration: "Full event", text: "Photobook size 12x24, 50 pages, plus 2 video sources with drone — one for the bride, one for the groom — and two 20x30 frames. Free prewedding.", features: ["Photobook 12x24 · 50 pages", "2 video sources + drone", "2 × 20x30 frames", "Free prewedding"] },
+  { slug: "gold-wedding-1-2m", icon: Heart, title: "Wedding — Premium Collection", price: "₦1,200,000", priceValue: 1200000, duration: "Full event", text: "Photobook size 12x24, 50 pages, plus a small 8x8 photobook, video with 2 cameras and drone, and two 20x30 frames. Free prewedding.", features: ["Photobook 12x24 · 50 pages", "Extra 8x8 photobook", "2 cameras + drone video", "2 × 20x30 frames", "Free prewedding"] },
 ];
 
 export function getPackage(slug: string): Package | undefined {
@@ -31,9 +37,9 @@ export function getPackage(slug: string): Package | undefined {
 
 // Studio payment + WhatsApp config — update these values with real details.
 export const studio = {
-  bankName: "Guaranty Trust Bank (GTBank)",
-  accountName: "Studio Zeez",
-  accountNumber: "0123456789",
+  bankName: "Zenith Bank",
+  accountName: "StudioZeezGallery",
+  accountNumber: "1310294633",
   whatsappNumber: "2348131117298", // international format, no +
   email: "Studiozeez@gmail.com",
 };
