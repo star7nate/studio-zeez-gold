@@ -29,6 +29,12 @@ import upSetPedestals from "@/assets/upload-set-pedestals.jpg";
 import upSetWave from "@/assets/upload-set-wave.jpg";
 import upStairsWarm from "@/assets/upload-set-stairs-warm.jpg";
 import upStairsPurple from "@/assets/upload-set-stairs-purple.jpg";
+import edBrownChair from "@/assets/editorial-brown-chair.jpg.asset.json";
+import edLimePlinth from "@/assets/editorial-lime-plinth.jpg.asset.json";
+import bdLimeStairs from "@/assets/birthday-lime-stairs.jpg.asset.json";
+import bdBlackGold from "@/assets/birthday-black-gold-stairs.jpg.asset.json";
+import bdBlueSequin from "@/assets/birthday-blue-sequin.jpg.asset.json";
+import bdRedRoses from "@/assets/birthday-red-roses.jpg.asset.json";
 
 export const Route = createFileRoute("/gallery")({
   component: Gallery,
@@ -45,6 +51,12 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const items = [
+  { src: edBrownChair.url, label: "Terracotta", category: "Editorial" },
+  { src: bdLimeStairs.url, label: "Citrine Ascent", category: "Birthday" },
+  { src: bdRedRoses.url, label: "Fifty Roses", category: "Birthday" },
+  { src: edLimePlinth.url, label: "Chartreuse", category: "Editorial" },
+  { src: bdBlackGold.url, label: "Gilded Noir", category: "Birthday" },
+  { src: bdBlueSequin.url, label: "Cobalt Bloom", category: "Birthday" },
   { src: upSmoke, label: "Veil of Smoke", category: "Editorial" },
   { src: upWhiteShirt, label: "Crisp Cotton", category: "Fashion" },
   { src: upTealStand, label: "Tassel & Teal", category: "Couture" },
