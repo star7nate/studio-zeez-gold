@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
-import portrait from "@/assets/studio-zeez-about.jpg";
+import portrait from "@/assets/studio-zeez-ceo.jpg";
 import { ArrowRight } from "lucide-react";
 import { useParallax } from "@/hooks/useParallax";
 import { useMouseParallax } from "@/hooks/useMouseParallax";
@@ -35,7 +35,7 @@ function About() {
             <img
               ref={portraitRef}
               src={portrait}
-              alt="Studio Zeez portrait subject in studio lighting"
+              alt="Studio Zeez founder and CEO portrait"
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover will-change-transform"
               style={{ transform: "translate3d(0, var(--py, 0px), 0) scale(1.08)" }}
@@ -50,7 +50,7 @@ function About() {
           <div className="gold-divider w-24 mt-8" />
           <div className="mt-8 space-y-5 text-muted-foreground text-lg leading-relaxed">
             <p data-reveal>
-              Studio Zeez was founded in 2018 with a simple obsession: that a photograph should feel
+              Studio Zeez was founded in 2017 with a simple obsession: that a photograph should feel
               like a relic. Something you'd find in a velvet-lined drawer a hundred years from now
               and still feel its pulse.
             </p>
