@@ -100,7 +100,7 @@ function Index() {
             <dl className="mt-14 grid grid-cols-3 gap-6 max-w-lg" data-reveal>
               {[
                 { k: "120+", v: "Commissions" },
-                { k: "8 yrs", v: "In studio" },
+                { k: "9yrs", v: "In studio" },
                 { k: "14", v: "Publications" },
               ].map((s) => (
                 <div key={s.v} className="border-l border-primary/30 pl-4">
