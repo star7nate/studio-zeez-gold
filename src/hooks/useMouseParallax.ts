@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Tracks pointer position inside the element and writes
- * `--mx`, `--my` (px) and `--rx`, `--ry` (deg) CSS variables.
+ * Tracks pointer position inside the element and writes smoothed
+ * `--mx`, `--my` (px) and `--rx`, `--ry` (deg) CSS variables via a rAF lerp,
+ * so the scene glides rather than snapping to the cursor.
  * Skipped for reduced-motion + coarse pointer devices.
  */
 export function useMouseParallax(strength = 14) {
@@ -15,35 +16,43 @@ export function useMouseParallax(strength = 14) {
     const el = ref.current;
     if (!el) return;
 
-    let raf = 0;
+    let raf: number | null = null;
     let tx = 0,
-      ty = 0;
+      ty = 0,
+      cx = 0,
+      cy = 0;
+
+    const tick = () => {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      el.style.setProperty("--mx", `${(cx * strength).toFixed(2)}px`);
+      el.style.setProperty("--my", `${(cy * strength).toFixed(2)}px`);
+      el.style.setProperty("--rx", `${(-cy * strength * 0.4).toFixed(3)}deg`);
+      el.style.setProperty("--ry", `${(cx * strength * 0.4).toFixed(3)}deg`);
+      const settled = Math.abs(tx - cx) < 0.0008 && Math.abs(ty - cy) < 0.0008;
+      raf = settled ? null : requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (raf == null) raf = requestAnimationFrame(tick);
+    };
+
     const onMove = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5;
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-      tx = px;
-      ty = py;
-      if (!raf) {
-        raf = requestAnimationFrame(() => {
-          el.style.setProperty("--mx", `${tx * strength}px`);
-          el.style.setProperty("--my", `${ty * strength}px`);
-          el.style.setProperty("--rx", `${-ty * (strength * 0.4)}deg`);
-          el.style.setProperty("--ry", `${tx * (strength * 0.4)}deg`);
-          raf = 0;
-        });
-      }
+      tx = (e.clientX - rect.left) / rect.width - 0.5;
+      ty = (e.clientY - rect.top) / rect.height - 0.5;
+      start();
     };
     const onLeave = () => {
-      el.style.setProperty("--mx", `0px`);
-      el.style.setProperty("--my", `0px`);
-      el.style.setProperty("--rx", `0deg`);
-      el.style.setProperty("--ry", `0deg`);
+      tx = 0;
+      ty = 0;
+      start();
     };
+
     el.addEventListener("mousemove", onMove);
     el.addEventListener("mouseleave", onLeave);
     return () => {
-      cancelAnimationFrame(raf);
+      if (raf != null) cancelAnimationFrame(raf);
       el.removeEventListener("mousemove", onMove);
       el.removeEventListener("mouseleave", onLeave);
     };

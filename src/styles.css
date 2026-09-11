@@ -308,3 +308,41 @@
     .marquee-track { animation: none; }
   }
 }
+
+@layer utilities {
+  /* ---- Smoothness pass ---- */
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+  }
+
+  /* Softer, longer easing on the shared 3D primitives */
+  .floating-frame { transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+  .stage-card { transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1); }
+  .tilt-hover { transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1); }
+  .lift-focus { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease; }
+  .animate-drift { animation-duration: 11s; }
+  .animate-drift-slow { animation-duration: 14s; }
+
+  /* Photos ease in once decoded instead of popping */
+  .photo-fade {
+    opacity: 0;
+    transform: scale(1.015);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .photo-fade[data-loaded="true"] { opacity: 1; transform: scale(1); }
+
+  /* Keep GPU work down: no perspective tricks or glare on touch devices */
+  @media (hover: none), (max-width: 768px) {
+    .scene-3d { perspective: none; }
+    .preserve-3d { transform-style: flat; }
+    .floating-frame { transform: none; }
+    .animate-drift, .animate-drift-slow { animation: none; }
+    .depth-glow::after { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .photo-fade { opacity: 1; transform: none; transition: none; }
+  }
+}
