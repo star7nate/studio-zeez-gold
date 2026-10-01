@@ -29,18 +29,18 @@ import upSetPedestals from "@/assets/upload-set-pedestals.jpg";
 import upSetWave from "@/assets/upload-set-wave.jpg";
 import upStairsWarm from "@/assets/upload-set-stairs-warm.jpg";
 import upStairsPurple from "@/assets/upload-set-stairs-purple.jpg";
-import edBrownChair from "@/assets/editorial-brown-chair.jpg.asset.json";
-import edLimePlinth from "@/assets/editorial-lime-plinth.jpg.asset.json";
-import bdLimeStairs from "@/assets/birthday-lime-stairs.jpg.asset.json";
-import bdBlackGold from "@/assets/birthday-black-gold-stairs.jpg.asset.json";
-import bdBlueSequin from "@/assets/birthday-blue-sequin.jpg.asset.json";
-import bdRedRoses from "@/assets/birthday-red-roses.jpg.asset.json";
-import bbYellow from "@/assets/baby-yellow-agbada.jpg.asset.json";
-import bbJordan from "@/assets/baby-blue-jordan.jpg.asset.json";
-import bbWhite from "@/assets/baby-white-agbada.jpg.asset.json";
-import bbMilk from "@/assets/baby-milk-tins.jpg.asset.json";
-import bbTwins from "@/assets/baby-twins-one.jpg.asset.json";
-import bbSuit from "@/assets/baby-black-suit.jpg.asset.json";
+import edBrownChair from "@/assets/editorial-brown-chair.jpg";
+import edLimePlinth from "@/assets/editorial-lime-plinth.jpg";
+import bdLimeStairs from "@/assets/birthday-lime-stairs.jpg";
+import bdBlackGold from "@/assets/birthday-black-gold-stairs.jpg";
+import bdBlueSequin from "@/assets/birthday-blue-sequin.jpg";
+import bdRedRoses from "@/assets/birthday-red-roses.jpg";
+import bbYellow from "@/assets/baby-yellow-agbada.jpg";
+import bbJordan from "@/assets/baby-blue-jordan.jpg";
+import bbWhite from "@/assets/baby-white-agbada.jpg";
+import bbMilk from "@/assets/baby-milk-tins.jpg";
+import bbTwins from "@/assets/baby-twins-one.jpg";
+import bbSuit from "@/assets/baby-black-suit.jpg";
 
 export const Route = createFileRoute("/gallery")({
   component: Gallery,
@@ -57,18 +57,18 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const items = [
-  { src: bbWhite.url, label: "Oriwajaiye", category: "Baby Shoot" },
-  { src: bbTwins.url, label: "Turning One", category: "Baby Shoot" },
-  { src: bbYellow.url, label: "Little Chief", category: "Baby Shoot" },
-  { src: bbSuit.url, label: "Young Gentleman", category: "Baby Shoot" },
-  { src: bbJordan.url, label: "Play Day", category: "Baby Shoot" },
-  { src: bbMilk.url, label: "Milestone", category: "Baby Shoot" },
-  { src: edBrownChair.url, label: "Terracotta", category: "Editorial" },
-  { src: bdLimeStairs.url, label: "Citrine Ascent", category: "Birthday" },
-  { src: bdRedRoses.url, label: "Fifty Roses", category: "Birthday" },
-  { src: edLimePlinth.url, label: "Chartreuse", category: "Editorial" },
-  { src: bdBlackGold.url, label: "Gilded Noir", category: "Birthday" },
-  { src: bdBlueSequin.url, label: "Cobalt Bloom", category: "Birthday" },
+  { src: bbWhite, label: "Oriwajaiye", category: "Baby Shoot" },
+  { src: bbTwins, label: "Turning One", category: "Baby Shoot" },
+  { src: bbYellow, label: "Little Chief", category: "Baby Shoot" },
+  { src: bbSuit, label: "Young Gentleman", category: "Baby Shoot" },
+  { src: bbJordan, label: "Play Day", category: "Baby Shoot" },
+  { src: bbMilk, label: "Milestone", category: "Baby Shoot" },
+  { src: edBrownChair, label: "Terracotta", category: "Editorial" },
+  { src: bdLimeStairs, label: "Citrine Ascent", category: "Birthday" },
+  { src: bdRedRoses, label: "Fifty Roses", category: "Birthday" },
+  { src: edLimePlinth, label: "Chartreuse", category: "Editorial" },
+  { src: bdBlackGold, label: "Gilded Noir", category: "Birthday" },
+  { src: bdBlueSequin, label: "Cobalt Bloom", category: "Birthday" },
   { src: upSmoke, label: "Veil of Smoke", category: "Editorial" },
   { src: upWhiteShirt, label: "Crisp Cotton", category: "Fashion" },
   { src: upTealStand, label: "Tassel & Teal", category: "Couture" },
